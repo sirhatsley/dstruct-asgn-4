@@ -4,6 +4,9 @@ Implements some of the methods from the Deque interface with a circular array.
 
 @author Tim Callies
 
+Note: When a comment refers to moving an index forward or backward, assume that
+it is accounting for the looping structure of the array.
+
 */
 
 public class CircularArrayDeque<E> implements MyDeque<E>{
@@ -33,6 +36,10 @@ public class CircularArrayDeque<E> implements MyDeque<E>{
         myData[startLoc]=toAdd;
         size++;
         return true;
+		/*
+		O(1): Moves the startLoc back by one, and places a new item in the new
+		placement. No need to increment through the rest of the array.
+		*/
     }
     
     public E removeFirst(){
@@ -49,6 +56,10 @@ public class CircularArrayDeque<E> implements MyDeque<E>{
             size--;
         }
         return output;
+		/*
+		O(1): Sets the data at startLoc to null, and moves the startLoc forward
+		one. No need to increment through the rest of the array.
+		*/
     }
     
     public boolean addLast(E toAdd){
@@ -62,6 +73,10 @@ public class CircularArrayDeque<E> implements MyDeque<E>{
         myData[(startLoc+size)%CAPACITY]=toAdd;
         size++;
         return true;
+		/*
+		O(1) If possible, places the new data in startLoc+size.
+		No need to increment through the rest of the array.
+		*/
     }
    
     public E removeLast(){
@@ -76,6 +91,10 @@ public class CircularArrayDeque<E> implements MyDeque<E>{
             size--;
             return output;
         }
+		/*
+		O(1): Sets the data at startLoc+size-1 to null and decrements the size.
+		No need to increment through the rest of the array.
+		*/
         return output;
     }
 
@@ -87,6 +106,9 @@ public class CircularArrayDeque<E> implements MyDeque<E>{
             return (E)myData[(startLoc+size)%CAPACITY];
         }
         return null;
+		/*
+		O(1) Simply returns the item at the end of the array.
+		*/
     }
     
     public E first(){
@@ -97,13 +119,22 @@ public class CircularArrayDeque<E> implements MyDeque<E>{
             return (E)myData[startLoc];
         }
         return null;
+		/*
+		O(1): Simply returns the item at the startLoc
+		*/
     }
     
     public int size(){
         return size;
+		/*
+		O(1): Returns the size of the array.
+		*/
     }
     
     public boolean isEmpty(){
         return (size==0);
+		/*
+		O(1): Returns if size=0.
+		*/
     }
 }//class

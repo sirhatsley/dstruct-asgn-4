@@ -3,6 +3,9 @@ import java.util.NoSuchElementException;
 
 A stack that can return the minimum element currently in the stack
 
+Creates 2 stacks, one stack which contains the data, and another stack which
+contains the minimum values which as the stack progresses.
+
 @author Tim Callies
 
 
@@ -45,7 +48,12 @@ public class MinStack<E extends Comparable<E>>{
             }
             dataTail=newNode;
         }
-        
+        /*
+		O(1) because it creates a node, checks the top node on the
+		minstack, and if it is greater than or equal to the new node, then that
+		data is added onto the minstack as well. It never increments through
+		either stack.
+		*/
     }//push
 
     /*
@@ -66,6 +74,11 @@ public class MinStack<E extends Comparable<E>>{
         }
         dataTail=dataTail.prev;
         return output;
+		/*
+		O(1) because it only accesses the top element on both stacks and
+		compares them before removing them (or just removing one of them, if
+		they do not have the same value.)
+		*/
     }//pop
 
     /*
@@ -77,6 +90,10 @@ public class MinStack<E extends Comparable<E>>{
     public E findMin() throws NoSuchElementException{
         if(dataTail==null) {throw new NoSuchElementException();}
         return minTail.data;
+		/*
+		O(1) Simply peeks at the first element on the minstack. No iteration
+		required.
+		*/
     }//findMin
 
     /*
@@ -87,6 +104,10 @@ public class MinStack<E extends Comparable<E>>{
 
     public boolean isEmpty(){
         return(dataTail==null);
+		/*
+		O(1). There is exactly one line of code and it is a boolean operation
+		within a return statement.
+		*/
     }//isEmpty
     
     /*
